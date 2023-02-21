@@ -1,0 +1,21 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: postgres:latest
+    restart: always
+    volumes:
+      - ./init-database.sh:/docker-entrypoint-initdb.d/init-database.sh
+    environment:
+      POSTGRES_DB: dashboard
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"

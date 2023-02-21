@@ -1,0 +1,12 @@
+asgiref==3.6.0
+Django==4.1.7
+djangorestframework==3.14.0
+numpy==1.24.2
+progressbar2==4.2.0
+psy==0.0.1
+psycopg==3.1.8
+python-utils==3.5.2
+pytz==2022.7.1
+scipy==1.10.1
+sqlparse==0.4.3
+typing_extensions==4.5.0
