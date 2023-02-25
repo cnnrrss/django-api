@@ -38,8 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'team.apps.TeamConfig',  # This object was created for us in /users/apps.py
-    'forum.apps.ForumConfig',
+    'forum.apps.ForumConfig', # This object was created in /forum/apps.py
 ]
 
 MIDDLEWARE = [
