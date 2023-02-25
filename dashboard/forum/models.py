@@ -1,12 +1,27 @@
 from django.db import models
 
 
+class UserManager(models.Manager):
+    def get_by_name(self, name):
+        return self.get(name=name)
+
+
 class User(models.Model):
     id = models.UUIDField
     email = models.EmailField
-    name = models.CharField(max_length=50, unique=True, error_messages={
-        'unique': "This value is not unique, please try a different one."
-    })
+    # name = models.CharField(max_length=50, unique=True, error_messages={
+    #     'unique': "This value is not unique, please try a different one."
+    # })
+
+    objects = UserManager()
+
+    # class Meta:
+    #     constraints = [
+    #         models.UniqueConstraint(
+    #             fields=["name"],
+    #             name="unique_name",
+    #         ),
+    #     ]
 
 
 class Comments(models.Model):
@@ -22,12 +37,16 @@ class Comments(models.Model):
     content = models.CharField(max_length=500)
     author_name = models.CharField(max_length=50)
 
-    author = models.ForeignObject(
-        User,
-        on_delete=models.CASCADE,
-        from_fields=['author_name'],
-        to_fields=['name']
-    )
+    # ERROR
+    #     if name.startswith('"') and name.endswith('"'):
+    # AttributeError: 'NoneType' object has no attribute 'startswith'
+
+    # author = models.ForeignObject(
+    #     User,
+    #     on_delete=models.CASCADE,
+    #     from_fields=['author_name'],
+    #     to_fields=['name']
+    # )
 
 
 class Tag(models.Model):
