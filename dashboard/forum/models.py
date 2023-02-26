@@ -7,14 +7,16 @@ class UserManager(models.Manager):
 
 
 class User(models.Model):
-    id = models.UUIDField
+    id = models.UUIDField(auto_created=True, primary_key=True)
     email = models.EmailField
+    # Add a default error message
     # name = models.CharField(max_length=50, unique=True, error_messages={
     #     'unique': "This value is not unique, please try a different one."
     # })
 
     objects = UserManager()
 
+    # add a constrant
     # class Meta:
     #     constraints = [
     #         models.UniqueConstraint(
@@ -24,8 +26,12 @@ class User(models.Model):
     #     ]
 
 
-class Comments(models.Model):
+class Comment(models.Model):
     """
+    Comments are made by users on Posts and other Comments. They are recursive by nature
+    we restrict a max depth of 3.
+
+    Note:
     A ForeignObject, is a more flexible way of defining a foreign key relationship.
     It allows you to customize the way the foreign key relationship is handled.
     For example, you can use a ForeignObject to define a relationship where the
@@ -50,15 +56,37 @@ class Comments(models.Model):
 
 
 class Tag(models.Model):
+    """
+    A tag is a keyword associated with another model of the forum application.
+    """
     name = models.CharField(max_length=50)
 
 
-# Create your models here.
 class Topic(models.Model):
+    """
+    A topic represents a "channel" of related posts within an arbitrarily configured category.
+    """
     title = models.CharField(max_length=50)
-    subTitle = models.CharField(max_length=50)
+    sub_title = models.CharField(max_length=50)
     content = models.TextField()
     tags = models.ManyToManyField(Tag)
+
+
+class Post(models.Model):
+    created = models.DateTimeField(auto_now=True)
+    title = models.CharField(max_length=50, blank=True, default='')
+    content = models.TextField()
+    user = models.ForeignKey(
+        to=User,
+        on_delete=models.CASCADE,
+    )
+    topic = models.ForeignKey(
+        to=Topic,
+        on_delete=models.CASCADE,
+    )
+
+    class Meta:
+        ordering = ['created']
 
 
 class Subscription(models.Model):
