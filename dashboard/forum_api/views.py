@@ -1,12 +1,18 @@
 # from django.utils.decorators import method_decorator
 # from django.views.decorators.cache import cache_page
 # from django.views.decorators.vary import vary_on_cookie
-from rest_framework import mixins, generics, status
+from rest_framework import mixins, generics, status, viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from .serializers import PostSerializer
-from .models import Post
+from .serializers import PostSerializer, UserSerializer
+from .models import Post, User
+
+
+# ViewSets define the view behavior.
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
 @api_view(['GET', 'POST'])

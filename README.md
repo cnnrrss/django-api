@@ -7,8 +7,8 @@ A forum-like app to dive deeper into Django
 
 ```python
 from django.db import models
-from forum.models import User, Topic, Post
-from forum.serializers import PostSerializer
+from forum_api.models import User, Topic, Post
+from forum_api.serializers import PostSerializer
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 

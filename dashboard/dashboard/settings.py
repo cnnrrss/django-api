@@ -32,15 +32,15 @@ FIXTURE_DIRS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'forum_api',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'forum.apps.ForumConfig',  # This object was created in /forum/apps.py
-    'forum',
     'rest_framework'
+    # This object was created in /forum_api/apps.py
 ]
 
 MIDDLEWARE = [
@@ -104,6 +104,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+AUTH_USER_MODEL = "forum_api.User"
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/

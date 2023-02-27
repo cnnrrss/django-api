@@ -1,13 +1,9 @@
-from django.contrib.auth.models import Group, User
+from django.contrib.auth.models import Group
+
 from rest_framework import permissions
 from rest_framework import viewsets
-from .serializers import GroupSerializer, UserSerializer
 
-
-# ViewSets define the view behavior.
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+from .serializers import GroupSerializer
 
 
 class GroupViewSet(viewsets.ModelViewSet):
