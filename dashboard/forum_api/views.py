@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from .serializers import PostSerializer, UserSerializer
-from .models import Post, User
+from .models import Comment, Post, User, Tag, Topic
 
 
 # ViewSets define the view behavior.
@@ -33,6 +33,19 @@ def post_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class CommentList(mixins.ListModelMixin,
+                  mixins.CreateModelMixin,
+                  generics.GenericAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = PostSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+
 class PostList(mixins.ListModelMixin,
                   mixins.CreateModelMixin,
                   generics.GenericAPIView):
@@ -46,11 +59,27 @@ class PostList(mixins.ListModelMixin,
         return self.create(request, *args, **kwargs)
 
 
-# class PostView(views.APIView):
-#     # Cache page for the requested url
-#     # With cookie: cache requested url for each user for 2 hours
-#     @method_decorator(cache_page(60*60*2))
-#     @method_decorator(vary_on_cookie)
-#     def get(self):
-#         queryset = Post.objects.all()
-#         return Response(content)
+class TagList(mixins.ListModelMixin,
+                  mixins.CreateModelMixin,
+                  generics.GenericAPIView):
+    queryset = Tag.objects.all()
+    serializer_class = PostSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+
+class TopicList(mixins.ListModelMixin,
+                  mixins.CreateModelMixin,
+                  generics.GenericAPIView):
+    queryset = Topic.objects.all()
+    serializer_class = PostSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
