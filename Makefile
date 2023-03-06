@@ -13,7 +13,7 @@ migrate:
 	python3 $(PKG_NAME)/manage.py migrate
 
 shell:
-	python $(PKG_NAME)/manage.py shell
+	python3 $(PKG_NAME)/manage.py shell
 
 serve:
-	python $(PKG_NAME)/manage.py runserver
+	python3 $(PKG_NAME)/manage.py runserver
